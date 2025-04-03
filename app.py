@@ -36,5 +36,23 @@ def autores():
     conn.close()
     return render_template('autores.html', autores=autores)
 
+@app.route('/categorias', methods=['GET', 'POST'])
+def categorias():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        nome = request.form['nome']
+        cursor.execute("INSERT INTO categorias (nome) VALUES (%s)", (nome,))
+        conn.commit()
+        return redirect('/categorias')
+    
+    cursor.execute("SELECT * FROM categorias")
+    categorias = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('categorias.html', categorias=categorias)
+
+
 if __name__ == '__main__':
     app.run(debug=True)
