@@ -53,6 +53,24 @@ def categorias():
     conn.close()
     return render_template('categorias.html', categorias=categorias)
 
+@app.route('/livros', methods=['GET', 'POST'])
+def livros():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        autor_id = request.form['autor_id']
+        categoria_id = request.form['categoria_id']
+        cursor.execute("INSERT INTO livros (titulo, autor_id, categoria_id) VALUES (%s, %s, %s)", (titulo, autor_id, categoria_id))
+        conn.commit()
+        return redirect('/livros')
+    
+    cursor.execute("SELECT * FROM livros")
+    livros = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('livros.html', livros=livros)
 
 if __name__ == '__main__':
     app.run(debug=True)

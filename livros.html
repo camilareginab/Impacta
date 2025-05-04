@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Gerenciar Livros</title>
+</head>
+<body>
+    <h1>Livros</h1>
+    <form method="POST">
+        <input type="text" name="titulo" placeholder="Título do Livro" required>
+        <input type="number" name="autor_id" placeholder="ID do Autor" required>
+        <input type="number" name="categoria_id" placeholder="ID da Categoria" required>
+        <button type="submit">Adicionar Livro</button>
+    </form>
+    <ul>
+        {% for livro in livros %}
+            <li>{{ livro[1] }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Voltar</a>
+</body>
+</html>
