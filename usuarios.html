@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Gerenciar Usuários</title>
+</head>
+<body>
+    <h1>Usuários</h1>
+    <form method="POST">
+        <input type="text" name="nome" placeholder="Nome do Usuário" required>
+        <input type="email" name="email" placeholder="Email do Usuário" required>
+        <button type="submit">Adicionar Usuário</button>
+    </form>
+    <ul>
+        {% for usuario in usuarios %}
+            <li>{{ usuario[1] }} - {{ usuario[2] }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Voltar</a>
+</body>
+</html>

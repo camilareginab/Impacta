@@ -7,7 +7,7 @@ app = Flask(__name__)
 db_config = {
     'host': '127.0.0.1',
     'user': 'root',
-    'password': 'CaCa',
+    'password': 'Caca',
     'database': 'biblioteca'
 }
 
@@ -71,6 +71,24 @@ def livros():
     cursor.close()
     conn.close()
     return render_template('livros.html', livros=livros)
+
+@app.route('/usuarios', methods=['GET', 'POST'])
+def usuarios():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        cursor.execute("INSERT INTO usuarios (nome, email) VALUES (%s, %s)", (nome, email))
+        conn.commit()
+        return redirect('/usuarios')
+    
+    cursor.execute("SELECT * FROM usuarios")
+    usuarios = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return render_template('usuarios.html', usuarios=usuarios)
 
 if __name__ == '__main__':
     app.run(debug=True)
